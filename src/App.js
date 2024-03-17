@@ -15,7 +15,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          This is a test to see if the split ui works!
         </a>
       </header>
     </div>
