@@ -11,9 +11,12 @@ function App() {
 
   const fetchHealth = async () => {
     try {
+      const proxyUrl = "https://cors-everywhere.herokuapp.com/"
       // const url = "http://127.0.0.1:8080" // for local testing
       const url = "http://split-bill-ms-env.eba-2ps6wmpc.us-east-1.elasticbeanstalk.com" // for testing with the deployed cloud app
-      const response = await fetch(url + '/admin/health');
+      const requestUrl = proxyUrl + url + "/admin/health"
+      console.log(`Calling the request url ${requestUrl}`)
+      const response = await fetch(requestUrl);
       if (!response.ok) {
         throw new Error('Failed to fetch');
       }
