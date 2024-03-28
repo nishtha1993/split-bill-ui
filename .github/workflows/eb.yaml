@@ -19,6 +19,10 @@ jobs:
         # zip all files except .git
         run: zip -r SplitBillUI.zip * -x "**.git**"
 
+      - name: Get Last Commit Hash
+        id: last_commit_hash
+        run: echo "hash=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v21
         with:
@@ -27,7 +31,7 @@ jobs:
           aws_secret_key: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
           application_name: splitApp
           environment_name: splitApp-env
-          version_label:  "ver-${{ github.sha }}" 
+          version_label: app-${{ steps.last_commit_hash.outputs.hash }}
           region: us-east-1
           deployment_package: SplitBillUI.zip
 
