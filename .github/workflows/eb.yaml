@@ -23,9 +23,9 @@ jobs:
         uses: einaregilsson/beanstalk-deploy@v21
         with:
          #  input the credentials you used to setup AWS CLI and credentials for the application environment
-          aws_access_key: "${{ secrets.ACCESS_KEY }}"
-          aws_secret_key: "${{ secrets.SECRET_ACCESS_KEY }}"
-          application_name: SplitApp
+          aws_access_key: "${{ secrets.AWS_ACCESS_KEY }}"
+          aws_secret_key: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+          application_name: splitApp
           environment_name: splitApp-env
           version_label:  "ver-${{ github.sha }}" 
           region: us-east-1
