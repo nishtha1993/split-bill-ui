@@ -29,9 +29,9 @@ jobs:
          #  input the credentials you used to setup AWS CLI and credentials for the application environment
           aws_access_key: "${{ secrets.AWS_ACCESS_KEY }}"
           aws_secret_key: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
-          application_name: splitApp
-          environment_name: splitApp-env
-          version_label: app-${{ steps.last_commit_hash.outputs.hash }}
+          application_name: split-ui
+          environment_name: split-ui-env
+          version_label: split-ui-${{ steps.last_commit_hash.outputs.hash }}
           region: us-east-1
           deployment_package: SplitBillUI.zip
 
