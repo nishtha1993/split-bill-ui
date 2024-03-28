@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM node:16-alpine as builder
 
 ENV PORT=3000
 
@@ -10,6 +10,6 @@ CMD ["npm", "start"]
 
 
 FROM nginx:1.22.1-alpine as prod-stage
-COPY --from=build-stage /app/build /usr/share/nginx/html
+COPY --from=builder /split-bill-ui/build /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
