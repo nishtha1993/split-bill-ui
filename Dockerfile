@@ -3,7 +3,7 @@ FROM node:16-alpine
 ENV PORT=3000
 
 WORKDIR /split-bill-ui
-COPY ./split-bill-ui
+COPY . /split-bill-ui
 RUN npm run build
 EXPOSE ${PORT}
 CMD ["npm", "start"]
