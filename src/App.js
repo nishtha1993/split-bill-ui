@@ -11,7 +11,7 @@ function App() {
 
   const fetchHealth = async () => {
     try {
-      const url = "https://split-bill-ms.aemp0baega29a.us-east-1.cs.amazonlightsail.com" // lightsail backend url
+      const url = "https://split-bill-ms.aemp0baega29a.us-east-1.cs.amazonlightsail.com" //lightsail backend url
       const requestUrl = url + "/health"
       const response = await fetch(requestUrl, {
                                     method: 'GET',
