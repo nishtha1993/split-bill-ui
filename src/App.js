@@ -16,7 +16,14 @@ function App() {
       const url = "https://split-bill-ms.aemp0baega29a.us-east-1.cs.amazonlightsail.com/" // for testing with the deployed cloud app
       const requestUrl = proxyUrl + url + "/health"
       console.log(`Calling the request url ${requestUrl}`)
-      const response = await fetch(requestUrl);
+      //const response = await fetch(requestUrl);
+      const response = await fetch(requestUrl, {
+                                    method: 'GET',
+                                    headers: {
+                                      'Access-Control-Allow-Origin': '*'
+                                    },
+                                  });
+                                    
       if (!response.ok) {
         throw new Error('Failed to fetch');
       }
