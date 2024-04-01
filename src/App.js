@@ -13,7 +13,12 @@ function App() {
     try {
       const url = "https://split-bill-ms.aemp0baega29a.us-east-1.cs.amazonlightsail.com" // lightsail backend url
       const requestUrl = url + "/health"
-      const response = await fetch(requestUrl);
+      const response = await fetch(requestUrl, {
+                                    method: 'GET',
+                                    headers: {
+                                      'Access-Control-Allow-Origin': '*'
+                                    },
+                                  });
       if (!response.ok) {
         throw new Error('Failed to fetch');
       }
