@@ -1,12 +1,9 @@
-version: "3"
+version: '3'
 services:
   web: 
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "80:80"
-    volumes:
-      - .:/split-bill-ui
-    working_dir: /split-bill-ui
-    command: npm install
+      - '80:80'
+    

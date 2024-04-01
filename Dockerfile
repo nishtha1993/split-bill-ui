@@ -1,15 +1,14 @@
-FROM node:16-alpine as builder
-
-ENV PORT=3000
-
+FROM node:14 as builder
 WORKDIR /split-bill-ui
-COPY . /split-bill-ui
+COPY package.json .
+RUN npm install
+COPY . .
 RUN npm run build
+
 EXPOSE ${PORT}
 CMD ["npm", "start"]
 
 
-FROM nginx:1.22.1-alpine as prod-stage
-COPY --from=builder /split-bill-ui/build /usr/share/nginx/html
+FROM nginx
 EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+COPY --from=builder /split-bill-ui/build /usr/share/nginx/html
