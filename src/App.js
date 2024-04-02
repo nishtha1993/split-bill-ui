@@ -1,52 +1,72 @@
-import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { AwesomeButton } from 'react-awesome-button';
+import {Container, Row, Col} from 'react-amazing-grid';
+import Centered from './Centered';
+import Board from './Board';
+import MessageList from './message-list';
 
-function App() {
-  const [healthStatus, setHealthStatus] = useState('');
 
-  useEffect(() => {
-    fetchHealth();
-  }, []);
+class App extends Component {
 
-  const fetchHealth = async () => {
-    try {
-      const url = "https://split-bill-ms.aemp0baega29a.us-east-1.cs.amazonlightsail.com" //lightsail backend url
-      const requestUrl = url + "/health"
-      const response = await fetch(requestUrl, {
-                                    method: 'GET',
-                                    headers: {
-                                      'Access-Control-Allow-Origin': '*'
-                                    },
-                                  });
-      if (!response.ok) {
-        throw new Error('Failed to fetch');
-      }
-      const data = await response.text();
-      setHealthStatus(data);
-    } catch (error) {
-      console.error('Error fetching health status:', error);
-    }
-  };
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Health Status Response: {healthStatus}
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    render() {
+    return (
+      <div className = "mainBody">
+<div className="navBar">
+  
+<ul>
+  <li className="navli"><a href="#home">Home</a></li>
+  <li className="navli"><a href="#Contribute">Contribute</a></li>
+  <li  className="navli" ><a href="#contact">Contact</a></li>
+  <li className="rightNav"><a href="#about">Subscribe</a></li>
+  <li className="rightNav"><a href="#Next">About</a></li>
+</ul>
+
+</div>
+      <Container>
+        <Row>
+        <Col xs={1} xsoffset={1}>
+        </Col>
+        <Col xs={7} xsoffset={1}>
+          <div className="ListDiv">
+
+              <Board />
+          </div>
+        </Col>
+        <Col xs={3} xsoffset={4}>
+        <div className = "members">
+          <div className="name">
+          <h2> Dion George </h2>
+
+          </div>
+  <table className="membersSidebar">
+  <tr>
+    <th>Group</th>
+
+  </tr>
+  <tr>
+    <td>You</td>
+  </tr>
+  <tr>
+    <td>Welisa</td>
+  </tr>
+  <tr>
+    <td>Rohan</td>
+  </tr>
+  <tr>
+    <td>Varun</td>
+  </tr>
+
+</table>
+
+        </div>
+        </Col>
+        </Row>
+        </Container>
+
+      </div>
+    );
+  }
 }
 
 export default App;
