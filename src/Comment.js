@@ -236,28 +236,28 @@ console.log(splitMoney);
 
 
 
-        <Row>
+        <Row className="namesSelect">
         <span className="splitWith">Split with: </span>
 
 <label className="container">
   <input type="checkbox"
   checked={this.state.isChecked1}
-    onChange={this.toggleChange1}/>Me
+    onChange={this.toggleChange1}/>Pradheep
   <span className="checkmark"></span>
 </label>
 <label className="container">
   <input type="checkbox"
   checked={this.state.isChecked2}
-    onChange={this.toggleChange2}/>Welisa
+    onChange={this.toggleChange2}/>Nishita
   <span className="checkmark"></span>
 </label>
-<label className="container">Rohan
+<label className="container">Parash
   <input type="checkbox"
   checked={this.state.isChecked3}
     onChange={this.toggleChange3}/>
   <span className="checkmark"></span>
 </label>
-<label className="container">Varun
+<label className="container">Rahul
   <input type="checkbox"
   checked={this.state.isChecked4}
   onChange={this.toggleChange4}/>

@@ -45,16 +45,16 @@ class App extends Component {
 
   </tr>
   <tr>
-    <td>You</td>
+    <td>Parash</td>
   </tr>
   <tr>
-    <td>Welisa</td>
+    <td>Rahul</td>
   </tr>
   <tr>
-    <td>Rohan</td>
+    <td>Nishita</td>
   </tr>
   <tr>
-    <td>Varun</td>
+    <td>Pradheep</td>
   </tr>
 
 </table>
