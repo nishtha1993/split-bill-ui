@@ -1,10 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
+//import React, { useState, useEffect } from 'react';
+//import logo from './logo.svg';
 import './App.css';
+import Sidebar from "./components/sidebar";
+
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Box, Container, Toolbar } from "@mui/material";
+import Home from "./pages/home";
+import Expenses from "./pages/Expenses";
+import Groups from "./pages/Groups";
+import ErrorPage from "./pages/404";
 
 function App() {
-  const [healthStatus, setHealthStatus] = useState('');
+  //const [healthStatus, setHealthStatus] = useState('');
 
+  /*
   useEffect(() => {
     fetchHealth();
   }, []);
@@ -31,24 +40,30 @@ function App() {
       console.error('Error fetching health status:', error);
     }
   };
+  */
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Health Status Response: {healthStatus}
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Box sx={{ display: "flex" }}>
+        <Sidebar />
+        <Toolbar />
+        <Box>
+          <Container maxWidth="lg">
+            {
+              <Routes>
+                <Route exact path={"React-Sidebar-example/"} element={<Home/>} />
+                <Route path={"React-Sidebar-example/Expenses"} element={<Expenses/>} />
+                <Route path={"React-Sidebar-example/Groups"} element={<Groups/>} />
+                <Route
+                  path="*"
+                  element={<ErrorPage/>}
+                />
+              </Routes>
+            }
+          </Container>
+        </Box>
+      </Box>
+    </Router>
   );
 }
 
