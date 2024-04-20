@@ -35,16 +35,16 @@ const SignIn = () => {
   };
 
   const doSubmit = async () => {
-    try {
-      await authService.login(data.email, data.password);
-      window.location.href = "/";
-    } catch (error: any) {
-      if (error.response && error.response.status === 400) {
-        setErrors({ ...errors, email: error.response.data });
-      } else {
-        setApiError(error.response.data);
-      }
-    }
+    //try {
+    //  await authService.login(data.email, data.password);
+      window.location.href = "/Home";
+    //} catch (error: any) {
+    //  if (error.response && error.response.status === 400) {
+    //    setErrors({ ...errors, email: error.response.data });
+    //  } else {
+    //    setApiError(error.response.data);
+    //  }
+    //}
   };
 
   const validate = () => {
