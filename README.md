@@ -1,4 +1,4 @@
-# SplitWises with your friends easily and efficiently. Register today with your friends
+# Split-A-Bill with your friends easily and efficiently. Register today with your friends
 
 ### Technologies Used
 

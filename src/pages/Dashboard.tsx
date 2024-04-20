@@ -9,7 +9,7 @@ export default function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
-    document.title = "SplitWise - Dashboard";
+    document.title = "Split-A-Bill - Dashboard";
   }, []);
 
   return (

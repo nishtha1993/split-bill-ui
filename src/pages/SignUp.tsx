@@ -20,7 +20,7 @@ const SignUp = () => {
 
 
   useEffect(() => {
-    document.title = "SplitWise | SignUp";
+    document.title = "Split-A-Bill | SignUp";
   }, []);
 
   const responseGoogle = async (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
@@ -126,7 +126,7 @@ const SignUp = () => {
   };
 
   useEffect(() => {
-    document.title = "SplitWise | SignUp";
+    document.title = "Split-A-Bill | SignUp";
   }, []);
   return (
     <div className="h-full w-full flex justify-center items-center">

@@ -108,7 +108,7 @@ const SignIn = () => {
     if (getCurrentUser()) {
       window.location.href = "/";
     }
-    document.title = "SplitWise | SignIn";
+    document.title = "Split-A-Bill | SignIn";
   }, []);
 
   return (
