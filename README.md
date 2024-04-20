@@ -1,5 +1,6 @@
-# SplitWises with your friends easily and efficiently. Register today with your friends
+# split-bill-ui
 
+<<<<<<< HEAD
 ### Technologies Used
 
 - Reactjs
@@ -23,3 +24,6 @@
 REACT_APP_URL=
 ```
 
+=======
+It is a user interface for split-a-bill app which is used to split and track bills. 
+>>>>>>> parent of b091e66 (New change)
