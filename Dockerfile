@@ -1,9 +1,9 @@
 FROM node:16 as builder
 WORKDIR /app
 COPY package.json .
-RUN yarn install
+RUN npm install
 COPY . .
-RUN yarn start
+RUN npm start
 
 FROM nginx
 EXPOSE 80
