@@ -3,32 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
-    "@headlessui/react": "^1.6.4",
-    "@heroicons/react": "^1.0.6",
-    "@tailwindcss/forms": "^0.5.2",
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^13.0.0",
-    "@testing-library/user-event": "^13.2.1",
-    "@types/jest": "^27.0.1",
-    "@types/node": "^16.7.13",
-    "@types/react": "^18.2.79",
-    "@types/react-dom": "^18.2.25",
-    "axios": "^0.27.2",
-    "date-fns": "^3.6.0",
-    "joi": "^17.6.0",
-    "jwt-decode": "^3.1.2",
-    "react": "^18.2.0",
-    "react-big-calendar": "^1.11.3",
-    "react-dom": "^18.2.0",
-    "react-google-login": "^5.2.2",
-    "react-icons": "^4.4.0",
-    "react-router-dom": "^6.22.3",
-    "react-scripts": "5.0.1",
-    "recharts": "^2.1.10",
-    "typescript": "^4.4.2",
-    "web-vitals": "^2.1.0"
-=======
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -45,7 +19,6 @@
     "react-scripts": "5.0.1",
     "react-router-dom": "^6.14.1",
     "web-vitals": "^2.1.4"
->>>>>>> parent of b091e66 (New change)
   },
   "scripts": {
     "deploy": "npm run build && gh-pages -d build",
@@ -71,17 +44,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-<<<<<<< HEAD
-  },
-  "devDependencies": {
-    "@types/react-big-calendar": "^1.8.9",
-    "@types/react-router-dom": "^5.3.3",
-    "autoprefixer": "^10.4.7",
-    "postcss": "^8.4.14",
-    "prettier": "^2.7.1",
-    "prettier-plugin-tailwindcss": "^0.1.11",
-    "tailwindcss": "^3.0.24"
-=======
->>>>>>> parent of b091e66 (New change)
   }
 }
