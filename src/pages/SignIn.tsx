@@ -6,7 +6,7 @@ import FormInput from "../components/FormInput";
 import Logo from "../components/Logo";
 import { authService } from "services";
 import Alert from "components/Alert";
-import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
+//import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { getCurrentUser } from "services/authService";
 
 type SignInDataType = {
@@ -87,22 +87,6 @@ const SignIn = () => {
     setErrors(errors);
   };
 
-  const responseGoogle = async (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
-    if ('profileObj' in response) {
-      try {
-        const { profileObj } = response;
-        const userData = {
-          email: profileObj.email,
-          password: '', // No password needed for Google sign-in
-        };
-        // To Handle login logic 
-        window.location.href = "/";
-      } catch (error) {
-        console.error('Error during Google login:', error);
-        setApiError('Failed to authenticate using Google.');
-      }
-    }
-  };
 
   useEffect(() => {
     if (getCurrentUser()) {
