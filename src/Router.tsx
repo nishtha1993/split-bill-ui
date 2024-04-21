@@ -11,10 +11,11 @@ import {
   AddExpense,
 } from "pages";
 import AddGroup from "pages/Groups/AddGroup";
-import MyCalendar from "pages/Groups/Calendar";
+import MyFriends from "pages/Groups/Friends";
 import DeleteAccount from "pages/Groups/DeleteAccount";
 import { Route, Routes } from "react-router-dom";
 import { getCurrentUser } from "services/authService";
+import Searchs from "pages/Groups/Search";
 
 const ROUTES = [
   {
@@ -46,8 +47,12 @@ const ROUTES = [
     component: () => <DeleteAccount />
   },
   {
-    path: "/calender",
-    component: () => <MyCalendar />
+    path: "/friends",
+    component: () => <MyFriends />
+  },
+  {
+    path: "/search",
+    component: () => <Searchs />
   },
   {
     path: "/group/detail/:groupId",
@@ -72,7 +77,8 @@ const AUTH_ROUTES = [
       },
       { path: "/addgroup", component: () => <AddGroup /> },
       { path: "/account", component: () => <DeleteAccount /> },
-      { path: "/calender", component: () => <MyCalendar /> },
+      { path: "/friends", component: () => <MyFriends /> },
+      { path: "/search", component: () => <Searchs /> },
       { path: "/group/detail/:groupId", component: () => <GroupDetail /> },
       { path: "/group/:groupId/addexpense", component: () => <AddExpense /> },
     ],

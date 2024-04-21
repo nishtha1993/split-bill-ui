@@ -5,6 +5,9 @@ import FormInput from "components/FormInput";
 import { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { authService, expenseService } from "services";
+import { getMyFriends } from "../../../services/friendService"; 
+import { putIntoS3 } from "../../../services/s3Service";
+import { parseReceiptFromTextract } from "../../../services/mlService";
 import ToastContext from "contexts/ToastContext";
 
 const AddExpense = ({ group }: any) => {
@@ -18,10 +21,14 @@ const AddExpense = ({ group }: any) => {
     amount: "",
     groupId: groupId,
     paidBy: currentUser.id,
+    items: [],
+    file: null,
+    receiptUrl: "",
+    names: getMyFriends(currentUser) as any,
   });
   const [errors, setErrors] = useState({
     description: "",
-    amount: "",
+    amount: 0
   });
 
   const schema: any = {
@@ -29,7 +36,12 @@ const AddExpense = ({ group }: any) => {
     amount: Joi.string().required().label("Amount"),
     groupId: Joi.string().required().label("Group Id"),
     paidBy: Joi.string().required().label("Paid By"),
+    name: Joi.string().required().label("Name"),
+    quantity: Joi.string().required().label("Quantity"),
+    owner: Joi.string().required().label("Owner")
   };
+
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   const validate = () => {
     const options = { abortEarly: false };
@@ -37,6 +49,7 @@ const AddExpense = ({ group }: any) => {
     if (!error) return null;
     const errors: any = {};
     for (const item of error.details) errors[item.path[0]] = item.message;
+    if (true) return null; //check
     return errors;
   };
 
@@ -49,25 +62,42 @@ const AddExpense = ({ group }: any) => {
 
   const handleChange = ({ currentTarget: input }: any) => {
     setErrors({
-      description: "",
-      amount: "",
+      ...errors,
+      [input.name]: ""
     });
     const errorMessage = validateProperty(input);
-    // @ts-ignore
-    if (errorMessage) errors[input.name] = errorMessage;
-    // @ts-ignore
-    else delete errors[input.name];
-
+    if (errorMessage) [input.name] = errorMessage;
     setData({ ...data, [input.name]: input.value });
     setErrors(errors);
   };
 
-  const handleAddExpense = async (e: any) => {
+  const handleAddExpense = async (e : Event) => {
     e.preventDefault();
-    const errors = validate();
-    setErrors(errors);
-    if (errors) return;
-    doSubmit();
+    const validationErrors = validate();
+    if (validationErrors) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    // Upload file to S3 if it exists
+    if (data.file) {
+      try {
+        return;
+      } catch (uploadError) {
+        showToast("Failed to upload file.", "error");
+        return;
+      }
+    }
+
+    try {
+      const result = await expenseService.addExpense(data);
+      if (result) {
+        showToast("Expense added successfully", "success");
+        window.location.href = `/group/detail/${groupId}`;
+      }
+    } catch (error) {
+      showToast("Failed to add expense.", "error");
+    }
   };
 
   const doSubmit = async () => {
@@ -81,6 +111,21 @@ const AddExpense = ({ group }: any) => {
       if (error.response) {
         setErrors({ ...errors });
       }
+    }
+  };
+
+  const handleFileChange = (event: any) => {
+    const file = event.target.files[0];
+    if (data.file) {
+      putIntoS3('split-bill-receipts', data.file); 
+      
+      data.receiptUrl = `https://split-bill-receipts.s3.amazonaws.com/${data.file}`;
+
+      var items: any = parseReceiptFromTextract(data.receiptUrl)
+      setData({...data, items});
+      
+      setPreviewUrl(URL.createObjectURL(file));
+      setData({ ...data, file });
     }
   };
 
@@ -101,7 +146,20 @@ const AddExpense = ({ group }: any) => {
         </div>
       </div>
 
-      <div className="max-w-lg mt-6">
+      {/* File Upload Section */}
+      <div className="mt-4 mb-4">
+        <label htmlFor="file" className="block text-sm font-medium text-gray-700">Upload Receipt</label>
+        <input id="file" name="file" type="file" onChange={handleFileChange} className="mt-2 block w-full text-sm text-gray-500
+          file:mr-4 file:py-2 file:px-4
+          file:rounded-full file:border-0
+          file:text-sm file:font-semibold
+          file:bg-blue-50 file:text-blue-700
+          hover:file:bg-blue-100
+        "/>
+        {previewUrl && <img src={previewUrl} alt="Receipt preview" className="mt-4 w-full max-w-xs" />}
+      </div>
+
+      <div className="max-w-lg">
         <FormInput
           label="Description"
           name="description"
@@ -118,12 +176,57 @@ const AddExpense = ({ group }: any) => {
           showLeadingIcon
           value={data.amount}
           onChange={handleChange}
-          error={errors ? errors.amount : ""}
+          // error={errors ? errors.amount : ""}
         />
-
-        <p className="mt-3 max-w-fit border border-green-600 px-3 py-1 bg-green-100 text-green-700 font-medium rounded-full text-sm">
-          Split Equally
-        </p>
+        <div className="flex justify-between space-x-4">
+          <div className="flex-1 flex">
+            {/* loop through the items from the state */}
+            {
+            data.items.map((item: any, index: any) => (
+              <div key={index}>
+                <FormInput
+                  label={`Item`}
+                  name={item.itemName}
+                  type="text"
+                  value={item.itemValue}
+                  onChange={(e) => handleChange(e)}
+                />
+                <FormInput
+                  label="Quantity"
+                  name={item.quantityName}
+                  type="number"
+                  value={item.quantityValue}
+                  onChange={(e) => handleChange(e)}
+                />
+                <select
+                  name="Owner"
+                  value={item.itemOwner}
+                  onChange={(e) => handleChange(e)}
+                  style={{ width: '100%', height: 41, marginTop: 32, borderRadius: 2 }}
+                >
+                  <option value="">Select Person</option>
+                  {data.names.map((name: any) => (
+                    <option key={name} value={name}>{name}</option>
+                  ))}
+                </select>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div>
+          <p className="mt-3 max-w-fit border border-green-600 px-3 py-1 text-green-700 font-medium rounded-full text-sm">
+            Split Equally
+          </p>
+          <p className="mt-3 max-w-fit border border-green-600 px-3 py-1 text-green-700 font-medium rounded-full text-sm">
+            Split Unequally
+          </p>
+          <p className="mt-3 max-w-fit border border-green-600 px-3 py-1 text-green-700 font-medium rounded-full text-sm">
+            Split By Percentage
+          </p>
+          <p className="mt-3 max-w-fit border border-green-600 px-3 py-1 bg-green-100 text-green-700 font-medium rounded-full text-sm">
+            Split By Item
+          </p>
+        </div>
 
         <Button
           margin="mt-6"

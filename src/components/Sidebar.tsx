@@ -5,7 +5,8 @@ import {
   XIcon,
   UserCircleIcon,
   UserGroupIcon,
-  CalendarIcon,
+  UsersIcon,
+  SearchIcon
 } from "@heroicons/react/outline";
 
 import Logo from "components/Logo";
@@ -16,8 +17,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: any) => {
   const [navigation, setNavigation] = useState([
     { name: "Home", href: "/", icon: HomeIcon, current: false },
     { name: "Groups", href: "/groups", icon: UserGroupIcon, current: false },
+    { name: "Friends", href: "/friends", icon: UsersIcon, current: false },
     { name: "Account", href: "/account", icon: UserCircleIcon, current: false },
-    { name: "calender", href: "/calender", icon: CalendarIcon, current: false },
+    { name: "Search", href: "/search", icon: SearchIcon, current: false },
   ]);
   const { pathname } = useLocation();
   useEffect(() => {
@@ -31,7 +33,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: any) => {
           ((updatePathName === "group" || updatePathName === "addgroup") &&
             item.name.toLowerCase() === "groups") ||
           (updatePathName === "account" && item.name.toLowerCase() === "account") ||
-          (updatePathName === "calender" && item.name.toLowerCase() === "calender")
+          (updatePathName === "friends" && item.name.toLowerCase() === "friends") ||
+          (updatePathName === "search" && item.name.toLowerCase() === "search")
         ) {
           item.current = true;
         } else {

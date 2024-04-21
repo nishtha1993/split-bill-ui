@@ -5,9 +5,13 @@ import Button from "components/Button";
 import GroupContext from "contexts/GroupContext";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-const Groups = () => {
-  const { groupList } = useContext(GroupContext);
+import { groupService, userService } from "services";
 
+
+const Groups = () => {
+  const emailId: any = userService.fetchCurrentUserEmailId();
+  const groupList:any = groupService.getMyGroups(emailId);
+  
   return (
     <div>
       {/* Page Heading */}
@@ -112,7 +116,7 @@ const Groups = () => {
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-gray-200 bg-white">
-                        {groupList.map((group) => (
+                        {groupList.map((group: any) => (
                           <tr key={group._id}>
                             <td className="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900">
                               {group.name}

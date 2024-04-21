@@ -6,7 +6,7 @@ import FormInput from "../components/FormInput";
 import Logo from "../components/Logo";
 import { authService } from "services";
 import Alert from "components/Alert";
-import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
+//import { GoogleLogin, GoogleLoginResponse, GoogleLoginResponseOffline } from 'react-google-login';
 import { getCurrentUser } from "services/authService";
 
 type SignInDataType = {
@@ -87,23 +87,6 @@ const SignIn = () => {
     setErrors(errors);
   };
 
-  const responseGoogle = async (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
-    if ('profileObj' in response) {
-      try {
-        const { profileObj } = response;
-        const userData = {
-          email: profileObj.email,
-          password: '', // No password needed for Google sign-in
-        };
-        // To Handle login logic 
-        window.location.href = "/";
-      } catch (error) {
-        console.error('Error during Google login:', error);
-        setApiError('Failed to authenticate using Google.');
-      }
-    }
-  };
-
   useEffect(() => {
     if (getCurrentUser()) {
       window.location.href = "/";
@@ -117,14 +100,6 @@ const SignIn = () => {
         <Logo />
         <div className="mt-8">
           <h1 className="font-bold text-3xl">Sign in to your account</h1>
-
-          <GoogleLogin
-              clientId="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
-              buttonText="Sign in with Google"
-              onSuccess={responseGoogle}
-              onFailure={responseGoogle}
-              cookiePolicy={'single_host_origin'}
-            />
 
           <div className="mt-8">
             {apiError && <Alert variant="error" message={apiError} />}

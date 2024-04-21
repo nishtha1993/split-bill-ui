@@ -1,28 +1,29 @@
-# split-bill-ui
+# Split-a-bill with your friends easily and efficiently. Register today with your friends
 
-### Technologies Used
+Split-a-bill is a streamlined, cloud-based web application designed for managing and splitting expenses among friends, roommates, and colleagues easily and efficiently.
 
-- Reactjs
-- Typescript
-- Tailwind CSS
+## Technologies Used
 
-![Image 1](src/images/1.png)
-![Image 2](src/images/2.png)
-![Image 3](src/images/3.png)
-![Image 4](src/images/4.png)
-![Image 5](src/images/5.png)
-![Image 6](src/images/6.png)
-![Image 7](src/images/7.png)
-![Image 8](src/images/8.png)
-![Image 9](src/images/9.png)
-![Image 10](src/images/10.png)
+- React.js - A JavaScript library for building user interfaces.
+- TypeScript - A typed superset of JavaScript that compiles to plain JavaScript.
+- Tailwind CSS - A utility-first CSS framework for rapid UI development.
 
-### .env for Frontend
+## Getting Started
 
-```
-REACT_APP_URL=
-```
+To get the UI running locally:
 
-=======
-It is a user interface for split-a-bill app which is used to split and track bills. 
+1. Clone this repository
+2. `cd` into the repository directory
+3. Install dependencies with `yarn install`
+4. Start the development server with `yarn start`
+5. Open `http://localhost:3000` to view it in the browser.
 
+Ensure you have the latest version of [Node.js and Yarn](https://nodejs.org/) installed.
+
+## Environment Variables
+
+Before starting, you will need to configure the environment variables. Create a `.env` file in the root directory and include the following:
+
+## UI Screenshots
+
+To checkout how our app looks like, screenshots are availble in the src/images folder which you can view.
